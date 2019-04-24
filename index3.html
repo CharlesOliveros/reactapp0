@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicializar componentes con createClass</title>
+</head>
+<body>
+  <div id="anclaje"></div>
+
+  <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+  
+  <script type="text/babel">
+ /*
+ En este ejemplo se explica como inicializar los valores de las propiedades y
+ del estado de un componente creadp con React.createClass ES5, con los metodos
+  getDefaultProps y getInitialState.
+ */
+
+    var ComponenteInicializacion = React.createClass({
+      getDefaultProps: function() {
+        console.log('Ejecuto getDefaultProps')
+        return {
+          propiedad: 'Valor por defecto de una propiedad'
+        }
+      },
+
+      getInitialState: function() {
+        console.log('Ejecuto getInitialState');
+        return {
+          estado: 'inicializado en getInitialState'
+        }
+      },
+
+      render: function() {
+        console.log('Ejecuto render')
+        return (
+          <div>
+            <p>Componente con propiedades y estado inicializado</p>
+            <p>Estado: {this.state.estado}</p>
+            <p>Propiedad: {this.props.propiedad}</p>
+          </div>
+        )
+      }
+
+    })
+
+    var anclaje = document.getElementById('anclaje')
+    ReactDOM.render(
+      <div>
+        <ComponenteInicializacion />
+        <ComponenteInicializacion propiedad="Inicializado desde la instancia"/>
+      </div>
+      , anclaje)
+  
+
+/*
+
+getDefaultProps()
+
+Este método se ejecuta primero y sirve para generar valores por defecto para 
+las propiedades de un tipo de componente. Con tipo de componente nos referimos
+ a todas las instancias que un componente puede generar. Por ejemplo, si un 
+ componente se usa 5 veces, este método se ejecutará una única vez, antes de 
+ comenzar a instanciar elementos concretos de ese componente.
+
+Este método debe devolver un objeto, con el conjunto de propiedades cuyos valores
+ predeterminados se quiera definir.
+
+Los valores predeterminados en las propiedades funcionan de la siguiente manera.
+
+Si al usar el componente se indican los valores de las propiedades, se toman 
+esos valores dentro de la instancia del componente. No se indicaron los
+ valores de esas propiedades al usar el componente, se crearán igualmente 
+ esas propiedades, cargando sus valores definidos mediante getDefaultProps().
+
+Este método solo es posible usarlo cuando estamos trabajando con la variante 
+de creación de componentes React.createClass().
+
+getInitialState()
+
+Este método se ejecuta después de haberse definido las propiedades por defecto.
+ Sirve para inicializar el estado inicial de un componente y solamente funciona 
+ en componentes creados mediante React.createClass(). A diferencia de 
+ getDefaultProps(), este método se ejecuta una vez por instancia del componente.
+
+El objeto que devuelva getInitialState() será lo que se inicialice como estado
+ del componente.
+
+*/
+
+  </script>
+  
+</body>
+</html>
